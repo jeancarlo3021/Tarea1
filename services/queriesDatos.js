@@ -1,11 +1,8 @@
-const AesCtr = require('../AesCtr');
 const db = require('./db');
 
-
-
-// se seleccionan todos los usuarios
-const getUsers = (request, response) => {
-  db.query('SELECT * FROM users ORDER BY id ASC', (error, results) => {
+// se muestran todos los datos
+const getData = (request, response) => {
+  db.query('SELECT * FROM datos ORDER BY id ASC', (error, results) => {
     if (error) {
       throw error
     }
@@ -14,10 +11,10 @@ const getUsers = (request, response) => {
 }
 
 // se muestra el usuario buscado por ID
-const getUserById = (request, response) => {
+const getDataById = (request, response) => {
   const id = parseInt(request.params.id)
 
-  db.query('SELECT * FROM users WHERE id = $1', [id], (error, results) => {
+  db.query('SELECT * FROM data WHERE id = $1', [id], (error, results) => {
     if (error) {
       throw error
     }
@@ -25,12 +22,11 @@ const getUserById = (request, response) => {
   })
 }
 
-// se inserta un nuevo usuario
-const createUser = (request, response) => {
-  const { name, password } = request.body
-  const passecript = AesCtr.encrypt(password,256)
+// se inserta un nuevo Data
+const createData = (request, response) => {
+  const { name, email, phone, IDuser } = request.body
 
-  db.query('INSERT INTO users (name, password) VALUES ($1, $2) RETURNING *', [name, passecript], (error, results) => {
+  db.query('INSERT INTO Data (name, email, phone, FK) VALUES ($1, $2, $3, $4) RETURNING *', [name, email, phone, IDuser], (error, results) => {
     if (error) {
       throw error
     }
@@ -38,8 +34,8 @@ const createUser = (request, response) => {
   })
 }
 
-//se actualiza el usuario
-const updateUser = (request, response) => {
+//se actualiza el data
+const updateData = (request, response) => {
   const id = parseInt(request.params.id)
   const { name, email } = request.body
 
@@ -55,8 +51,8 @@ const updateUser = (request, response) => {
   )
 }
 
-// se elimina el usuario por medio de ID
-const deleteUser = (request, response) => {
+// se elimina el Data por medio de ID
+const deleteData = (request, response) => {
   const id = parseInt(request.params.id)
 
   db.query('DELETE FROM users WHERE id = $1', [id], (error, results) => {
@@ -68,9 +64,9 @@ const deleteUser = (request, response) => {
 }
 
 module.exports = {
-  getUsers,
-  getUserById,
-  createUser,
-  updateUser,
-  deleteUser,
+  getData,
+  getDataById,
+  createData,
+  updateData,
+  deleteData,
 }
