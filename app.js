@@ -6,7 +6,7 @@ var logger = require('morgan');
 const db = require('./services/queriesUser')
 
 var indexRouter = require('./routes/index');
-var quotesRouter = require('./routes/quotes');
+
 
 var app = express();
 
@@ -17,6 +17,6 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
-app.use('/quotes', quotesRouter);
+
 
 module.exports = app;
