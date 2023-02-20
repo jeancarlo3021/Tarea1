@@ -1,3 +1,4 @@
+
 const db = require('./db');
 
 
@@ -26,17 +27,8 @@ const getUserById = (request, response) => {
 
 // se inserta un nuevo usuario
 const createUser = (request, response) => {
-<<<<<<< HEAD
-  const { name, password } = request.body
-
-
-  db.query('INSERT INTO users (name, password) VALUES ($1, $2) RETURNING *', [name, password], (error, results) => {
-=======
   const { username, password } = request.body
-  const passecript = AesCtr.encrypt(password,256)
-
-  db.query('INSERT INTO Usuario (username, password) VALUES ($1, $2) RETURNING *', [username, passecript], (error, results) => {
->>>>>>> 13a4b4081a1cfe134a55da193cecfd5a058d1742
+  db.query('INSERT INTO Usuario (username, password) VALUES ($1, $2) RETURNING *', [username, password], (error, results) => {
     if (error) {
       throw error
     }
