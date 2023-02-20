@@ -4,6 +4,7 @@ const app = express()
 const dbUsers = require('../services/queriesUser')
 const dbData = require('../services/queriesDatos')
 const port = 3000
+const router = express.Router();
 
 app.use(bodyParser.json())
 app.use(
@@ -31,3 +32,5 @@ app.delete('/data/:id', dbData.deleteData)
 app.listen(port, () => {
   console.log(`App running on port ${port}.`)
 })
+
+module.exports = router ;
