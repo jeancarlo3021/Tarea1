@@ -28,9 +28,9 @@ const getUserById = (request, response) => {
 // se inserta un nuevo usuario
 const createUser = (request, response) => {
   const { name, password } = request.body
-  const passecript = AesCtr.encrypt(password,256)
 
-  db.query('INSERT INTO users (name, password) VALUES ($1, $2) RETURNING *', [name, passecript], (error, results) => {
+
+  db.query('INSERT INTO users (name, password) VALUES ($1, $2) RETURNING *', [name, password], (error, results) => {
     if (error) {
       throw error
     }
